@@ -79,6 +79,7 @@ contract JAM305Registration {
         Member memory member = members[memberAddress];
         return (member.name, member.registrationId, member.image);
     }
+
     
     function getMemberDashboard() external view onlyMember(msg.sender) returns (string memory) {
         Member memory member = members[msg.sender];
