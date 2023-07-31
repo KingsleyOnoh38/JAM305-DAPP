@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-import "./Admin.sol";
+import "./Admin.sol";  // Import the JAM305Registration contract
 
 contract MemberContract {
     address public memberAddress;
@@ -17,6 +17,16 @@ contract MemberContract {
         string sex;
         string dateOfBirth;
         string validIdNumber;
+        uint256 registrationFees;
+        uint256 membershipRenewalFees;
+        uint256 monthlyDues;
+        uint256 monthlyLevies;
+    }
+
+    struct MemberDetails {
+        string name;
+        string registrationId;
+        string image;
     }
 
     MemberProfile public memberProfile;
@@ -35,8 +45,7 @@ contract MemberContract {
         require(isAdminRegistered == false, "You have already inputted a registration ID.");
 
         // Check if the provided registration ID exists in the admin contract
-        require(bytes(adminContract.members(memberAddress).name).length > 0, "Invalid registration ID.");
-
+        require(bytes(adminContract.getMemberName(memberAddress)).length > 0, "Invalid registration ID.");
 
         // Mark the member as registered by the admin
         isAdminRegistered = true;
@@ -70,7 +79,11 @@ contract MemberContract {
             _houseAddress,
             _sex,
             _dateOfBirth,
-            _validIdNumber
+            _validIdNumber,
+            0,  // These values will be updated via the getMemberDashboard function
+            0,  // They are set to 0 initially to avoid potential confusion
+            0,
+            0
         );
     }
 
@@ -103,23 +116,46 @@ contract MemberContract {
     }
 
     // Function to get the member's dashboard information
-    function getMemberDashboard() external view returns (MemberProfile memory, uint256, uint256, uint256, uint256) {
+    function getMemberDashboard() external view returns (
+        string memory,      // MemberProfile name
+        string memory,      // MemberProfile phoneNumber
+        string memory,      // MemberProfile image
+        string memory,      // MemberProfile maritalStatus
+        string memory,      // MemberProfile emailAddress
+        string memory,      // MemberProfile houseAddress
+        string memory,      // MemberProfile sex
+        string memory,      // MemberProfile dateOfBirth
+        string memory,      // MemberProfile validIdNumber
+        uint256,            // registrationFees
+        uint256,            // membershipRenewalFees
+        uint256,            // monthlyDues
+        uint256             // monthlyLevies
+    ) {
         // Get the financial status of the member from the admin contract
         (
             uint256 registrationFees,
             uint256 membershipRenewalFees,
             uint256 monthlyDues,
             uint256 monthlyLevies
-        ) = adminContract.members(memberAddress);
+        ) = adminContract.getFinancialStatus(memberAddress);
 
         return (
-            memberProfile,
+            memberProfile.name,
+            memberProfile.phoneNumber,
+            memberProfile.image,
+            memberProfile.maritalStatus,
+            memberProfile.emailAddress,
+            memberProfile.houseAddress,
+            memberProfile.sex,
+            memberProfile.dateOfBirth,
+            memberProfile.validIdNumber,
             registrationFees,
             membershipRenewalFees,
             monthlyDues,
             monthlyLevies
         );
     }
+
 
     // Function to generate a unique registration ID in the format "JAM/305-SMG/xxx"
     function generateUniqueRegistrationId() private view returns (string memory) {
