@@ -17,10 +17,6 @@ contract MemberContract {
         string sex;
         string dateOfBirth;
         string validIdNumber;
-        uint256 registrationFees;
-        uint256 membershipRenewalFees;
-        uint256 monthlyDues;
-        uint256 monthlyLevies;
     }
 
     struct MemberDetails {
@@ -79,11 +75,7 @@ contract MemberContract {
             _houseAddress,
             _sex,
             _dateOfBirth,
-            _validIdNumber,
-            0,  // These values will be updated via the getMemberDashboard function
-            0,  // They are set to 0 initially to avoid potential confusion
-            0,
-            0
+            _validIdNumber
         );
     }
 
@@ -115,8 +107,8 @@ contract MemberContract {
         emit ProfileUpdated(memberAddress, _name, _image);
     }
 
-    // Function to get the member's dashboard information
-    function getMemberDashboard() external view returns (
+    // Function to get the member's profile information
+    function getMemberProfile() external view returns (
         string memory,      // MemberProfile name
         string memory,      // MemberProfile phoneNumber
         string memory,      // MemberProfile image
@@ -125,7 +117,23 @@ contract MemberContract {
         string memory,      // MemberProfile houseAddress
         string memory,      // MemberProfile sex
         string memory,      // MemberProfile dateOfBirth
-        string memory,      // MemberProfile validIdNumber
+        string memory       // MemberProfile validIdNumber
+    ) {
+        return (
+            memberProfile.name,
+            memberProfile.phoneNumber,
+            memberProfile.image,
+            memberProfile.maritalStatus,
+            memberProfile.emailAddress,
+            memberProfile.houseAddress,
+            memberProfile.sex,
+            memberProfile.dateOfBirth,
+            memberProfile.validIdNumber
+        );
+    }
+
+    // Function to get the member's financial status information
+    function getMemberFinancialStatus() external view returns (
         uint256,            // registrationFees
         uint256,            // membershipRenewalFees
         uint256,            // monthlyDues
@@ -140,22 +148,12 @@ contract MemberContract {
         ) = adminContract.getFinancialStatus(memberAddress);
 
         return (
-            memberProfile.name,
-            memberProfile.phoneNumber,
-            memberProfile.image,
-            memberProfile.maritalStatus,
-            memberProfile.emailAddress,
-            memberProfile.houseAddress,
-            memberProfile.sex,
-            memberProfile.dateOfBirth,
-            memberProfile.validIdNumber,
             registrationFees,
             membershipRenewalFees,
             monthlyDues,
             monthlyLevies
         );
     }
-
 
     // Function to generate a unique registration ID in the format "JAM/305-SMG/xxx"
     function generateUniqueRegistrationId() private view returns (string memory) {
