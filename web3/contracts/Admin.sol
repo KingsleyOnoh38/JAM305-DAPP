@@ -3,7 +3,7 @@ pragma solidity ^0.8.9;
 
 contract JAM305Registration {
     address public admin;
-    
+
     struct Member {
         string name;
         string registrationId;
@@ -13,33 +13,37 @@ contract JAM305Registration {
         uint256 monthlyDues;
         uint256 monthlyLevies;
     }
-    
+
     mapping(address => Member) private members;
     address[] public memberAddresses;
-    
+
     event RegistrationIdGenerated(address indexed member, string registrationId);
     event MembershipRevoked(address indexed member);
     event FinancialStatusUpdated(address indexed member, uint256 registrationFees, uint256 membershipRenewalFees, uint256 monthlyDues, uint256 monthlyLevies);
-    
+
     constructor() {
         admin = msg.sender;
     }
-    
+
+    // Modifier to check if the caller is the admin
     modifier onlyAdmin() {
         require(msg.sender == admin, "Only the admin can call this function.");
         _;
     }
-    
+
+    // Modifier to check if the caller is the member of the specified address
     modifier onlyMember(address memberAddress) {
         require(memberAddress == msg.sender, "You can only access your own dashboard.");
         _;
     }
-    
+
+    // Modifier to check if the caller is either the admin or the member of the specified address
     modifier onlyAdminOrMember(address memberAddress) {
         require(memberAddress == msg.sender || msg.sender == admin, "Only the admin or the member can access this function.");
         _;
     }
-    
+
+    // Function to generate a unique registration ID for a member
     function generateRegistrationId(string memory name, string memory image) external onlyAdmin {
         string memory registrationId = _generateRandomId();
         members[msg.sender].name = name;
@@ -48,7 +52,8 @@ contract JAM305Registration {
         memberAddresses.push(msg.sender);
         emit RegistrationIdGenerated(msg.sender, registrationId);
     }
-    
+
+    // Function to update the financial status of a member
     function updateFinancialStatus(address member, uint256 registrationFees, uint256 membershipRenewalFees, uint256 monthlyDues, uint256 monthlyLevies) external onlyAdmin {
         members[member].registrationFees = registrationFees;
         members[member].membershipRenewalFees = membershipRenewalFees;
@@ -56,7 +61,8 @@ contract JAM305Registration {
         members[member].monthlyLevies = monthlyLevies;
         emit FinancialStatusUpdated(member, registrationFees, membershipRenewalFees, monthlyDues, monthlyLevies);
     }
-    
+
+    // Function to revoke the membership of a member
     function revokeMembership(address member) external onlyAdmin {
         delete members[member];
         for (uint256 i = 0; i < memberAddresses.length; i++) {
@@ -68,11 +74,13 @@ contract JAM305Registration {
         }
         emit MembershipRevoked(member);
     }
-    
+
+    // Function to get the number of registered members
     function getMembersCount() external view returns (uint256) {
         return memberAddresses.length;
     }
-    
+
+    // Function to get the details of a member at the specified index
     function getMemberDetails(uint256 index) external view returns (string memory, string memory, string memory) {
         require(index < memberAddresses.length, "Invalid index.");
         address memberAddress = memberAddresses[index];
@@ -80,10 +88,12 @@ contract JAM305Registration {
         return (member.name, member.registrationId, member.image);
     }
 
+    // Function to get the name of a member given their address
     function getMemberName(address memberAddress) external view returns (string memory) {
         return members[memberAddress].name;
     }
 
+    // Function to get the financial status of a member given their address
     function getFinancialStatus(address memberAddress) external view returns (
         uint256 registrationFees,
         uint256 membershipRenewalFees,
@@ -98,11 +108,13 @@ contract JAM305Registration {
         );
     }
 
+    // Function to get the dashboard details of a member
     function getMemberDashboard() external view onlyMember(msg.sender) returns (string memory) {
         Member memory member = members[msg.sender];
         return string(abi.encodePacked("Welcome to your dashboard, ", member.name, "!"));
     }
-    
+
+    // Internal function to generate a random registration ID for a member
     function _generateRandomId() private view returns (string memory) {
         uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.basefee, msg.sender))) % 10000;
         string memory registrationId = string(abi.encodePacked(toString(randomNumber), "JAM"));
@@ -114,23 +126,23 @@ contract JAM305Registration {
         if (value == 0) {
             return "0";
         }
-        
+
         uint256 temp = value;
         uint256 digits;
-        
+
         while (temp != 0) {
             digits++;
             temp /= 10;
         }
-        
+
         bytes memory buffer = new bytes(digits);
-        
+
         while (value != 0) {
             digits -= 1;
             buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
             value /= 10;
         }
-        
+
         return string(buffer);
     }
 }

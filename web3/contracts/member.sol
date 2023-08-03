@@ -29,24 +29,19 @@ contract MemberContract {
     bool public isAdminRegistered;
     string public registrationId;
 
+    // Constructor to set the member address and link to the admin contract
     constructor(address _adminContractAddress) {
-        memberAddress = msg.sender; // Set the member address to the sender (the member)
+        memberAddress = msg.sender;
         adminContract = JAM305Registration(_adminContractAddress);
         isAdminRegistered = false;
     }
 
     // Function for members to input their unique registration ID provided by the admin
     function inputRegistrationId(string memory _registrationId) external {
-        // Ensure the member hasn't already inputted a registration ID
         require(isAdminRegistered == false, "You have already inputted a registration ID.");
-
-        // Check if the provided registration ID exists in the admin contract
         require(bytes(adminContract.getMemberName(memberAddress)).length > 0, "Invalid registration ID.");
 
-        // Mark the member as registered by the admin
         isAdminRegistered = true;
-
-        // Set the member's registration ID
         registrationId = _registrationId;
     }
 
@@ -62,10 +57,8 @@ contract MemberContract {
         string memory _dateOfBirth,
         string memory _validIdNumber
     ) external {
-        // Make sure the member has inputted a registration ID from the admin
         require(isAdminRegistered, "Please input a valid registration ID provided by the admin.");
 
-        // Initialize the member's profile information
         memberProfile = MemberProfile(
             _name,
             _phoneNumber,
@@ -93,7 +86,6 @@ contract MemberContract {
     ) external {
         require(msg.sender == memberAddress, "You can only update your own profile.");
 
-        // Update the member's profile information
         memberProfile.name = _name;
         memberProfile.phoneNumber = _phoneNumber;
         memberProfile.image = _image;
@@ -139,7 +131,6 @@ contract MemberContract {
         uint256,            // monthlyDues
         uint256             // monthlyLevies
     ) {
-        // Get the financial status of the member from the admin contract
         (
             uint256 registrationFees,
             uint256 membershipRenewalFees,
