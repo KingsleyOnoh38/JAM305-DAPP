@@ -122,7 +122,7 @@ contract Admin {
     // Internal function to generate a random registration ID for a member
     function _generateRandomId() private view returns (string memory) {
         uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.basefee, msg.sender))) % 10000;
-        string memory registrationId = string(abi.encodePacked(toString(randomNumber), "Admin"));
+        string memory registrationId = string(abi.encodePacked(toString(randomNumber), "JAM"));
         return registrationId;
     }
 
