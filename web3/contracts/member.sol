@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-import "./Admin.sol";  // Import the JAM305Registration contract
+import "./Admin.sol";
 
 contract MemberContract {
     address public memberAddress;
-    JAM305Registration public adminContract;
+    Admin public adminContract;
 
     struct MemberProfile {
         string name;
@@ -19,20 +19,15 @@ contract MemberContract {
         string validIdNumber;
     }
 
-    struct MemberDetails {
-        string name;
-        string registrationId;
-        string image;
-    }
-
     MemberProfile public memberProfile;
     bool public isAdminRegistered;
     string public registrationId;
+    string public membershipId;
 
     // Constructor to set the member address and link to the admin contract
     constructor(address _adminContractAddress) {
         memberAddress = msg.sender;
-        adminContract = JAM305Registration(_adminContractAddress);
+        adminContract = Admin(_adminContractAddress);
         isAdminRegistered = false;
     }
 
@@ -70,6 +65,9 @@ contract MemberContract {
             _dateOfBirth,
             _validIdNumber
         );
+
+        // Generate the membership ID and store it in the contract
+        membershipId = generateUniqueMembershipId();
     }
 
     // Function to update member profile information
@@ -146,13 +144,9 @@ contract MemberContract {
         );
     }
 
-    // Function to generate a unique registration ID in the format "JAM/305-SMG/xxx"
-    function generateUniqueRegistrationId() private view returns (string memory) {
-        uint256 memberId = adminContract.getMembersCount();
-        string memory prefix = "JAM/305-SMG/";
-        string memory idNumber = toString(memberId + 1);
-        string memory uniqueId = string(abi.encodePacked(prefix, idNumber));
-        return uniqueId;
+    // Function to generate a unique membership ID in the format "JAM/305-SMG/xxx"
+    function generateUniqueMembershipId() private returns (string memory) {
+        return adminContract.generateUniqueMembershipId();
     }
 
     // Function to convert a uint to a string
@@ -182,4 +176,6 @@ contract MemberContract {
 
     // Event to notify when the profile is updated
     event ProfileUpdated(address indexed member, string name, string image);
+    // Event to notify when the membership ID is generated
+    event MembershipIdGenerated(address indexed member, string membershipId);
 }

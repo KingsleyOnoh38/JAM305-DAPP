@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-contract JAM305Registration {
+contract Admin {
     address public admin;
+    uint256 public lastMemberId; // Store the last issued membership ID
 
     struct Member {
         string name;
@@ -20,6 +21,7 @@ contract JAM305Registration {
     event RegistrationIdGenerated(address indexed member, string registrationId);
     event MembershipRevoked(address indexed member);
     event FinancialStatusUpdated(address indexed member, uint256 registrationFees, uint256 membershipRenewalFees, uint256 monthlyDues, uint256 monthlyLevies);
+    event MembershipIdGenerated(address indexed member, string membershipId);
 
     constructor() {
         admin = msg.sender;
@@ -50,6 +52,7 @@ contract JAM305Registration {
         members[msg.sender].registrationId = registrationId;
         members[msg.sender].image = image;
         memberAddresses.push(msg.sender);
+
         emit RegistrationIdGenerated(msg.sender, registrationId);
     }
 
@@ -59,6 +62,7 @@ contract JAM305Registration {
         members[member].membershipRenewalFees = membershipRenewalFees;
         members[member].monthlyDues = monthlyDues;
         members[member].monthlyLevies = monthlyLevies;
+
         emit FinancialStatusUpdated(member, registrationFees, membershipRenewalFees, monthlyDues, monthlyLevies);
     }
 
@@ -72,6 +76,7 @@ contract JAM305Registration {
                 break;
             }
         }
+
         emit MembershipRevoked(member);
     }
 
@@ -117,8 +122,39 @@ contract JAM305Registration {
     // Internal function to generate a random registration ID for a member
     function _generateRandomId() private view returns (string memory) {
         uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.basefee, msg.sender))) % 10000;
-        string memory registrationId = string(abi.encodePacked(toString(randomNumber), "JAM"));
+        string memory registrationId = string(abi.encodePacked(toString(randomNumber), "Admin"));
         return registrationId;
+    }
+
+    // Function to generate a unique membership ID in the format "JAM/305-SMG/xxx"
+    function generateUniqueMembershipId() public returns (string memory) {
+        lastMemberId++;
+        string memory prefix = "JAM/305-SMG/";
+        string memory idNumber = _toStringWithLeadingZeros(lastMemberId, 3);
+        string memory uniqueId = string(abi.encodePacked(prefix, idNumber));
+
+        emit MembershipIdGenerated(msg.sender, uniqueId);
+        return uniqueId;
+    }
+
+    // Helper function to convert a uint to a string with leading zeros
+    function _toStringWithLeadingZeros(uint256 value, uint256 length) private pure returns (string memory) {
+        uint256 temp = value;
+        uint256 digits;
+
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+
+        bytes memory buffer = new bytes(length);
+
+        for (uint256 i = 0; i < length; i++) {
+            buffer[i] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+
+        return string(buffer);
     }
 
     // Helper function to convert a uint to a string
