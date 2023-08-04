@@ -6,7 +6,7 @@ module.exports = {
     networks: {
       hardhat: {},
       mumbai: {
-        url: 'https://rpc.ankr.com/eth_mumbai',
+        url: 'https://rpc.ankr.com/eth_goerli',
         accounts: [`0x${process.env.PRIVATE_KEY}`]
       }
     },
