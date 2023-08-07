@@ -1,5 +1,7 @@
 import { ThirdwebProvider } from '@thirdweb-dev/react';
 import '../styles/globals.css';
+// import "../css/tailwind.css";
+
 
 // This is the chain your dApp will work on.
 // Change this to the chain your app is built for.
@@ -9,6 +11,7 @@ const activeChain = 'mumbai';
 function MyApp({ Component, pageProps }) {
 	return (
 		<ThirdwebProvider
+		    attribute="class"
 			activeChain={activeChain}
 			clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
 		>
