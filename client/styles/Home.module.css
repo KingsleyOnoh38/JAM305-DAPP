@@ -1,10 +1,3 @@
-.main {
-  width: 100vw;
-  min-height: 100vh;
-  height: auto;
-  padding: 4rem 0;
-}
-
 .container {
   width: 100%;
   max-width: 1440px;
@@ -12,28 +5,28 @@
   margin: 0 auto;
 }
 
-.gradient-text-0 {
+.gradientText0 {
   background: -webkit-linear-gradient(#bfa3da, #84309c, #c735b0);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.gradient-text-1 {
+.gradientText1 {
   background: -webkit-linear-gradient(#a79af9, #7aa8d2);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.gradient-text-2 {
+.gradientText2 {
   background: -webkit-linear-gradient(#bfa3da, #743f93);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.gradient-text-3 {
+.gradientText3 {
   background: -webkit-linear-gradient(#c35ab1, #e9a8d9);
   -webkit-background-clip: text;
   background-clip: text;
@@ -94,7 +87,7 @@
   border: none;
 }
 
-.card-text {
+.cardText {
   padding: 1rem;
 }
 
