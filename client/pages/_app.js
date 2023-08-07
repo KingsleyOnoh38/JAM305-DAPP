@@ -11,7 +11,7 @@ const activeChain = 'mumbai';
 function MyApp({ Component, pageProps }) {
 	return (
 		<ThirdwebProvider
-		    attribute="class"
+		    // attribute="class"
 			activeChain={activeChain}
 			clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
 		>

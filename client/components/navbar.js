@@ -1,4 +1,3 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
 import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
 import Image from "next/image"
@@ -17,15 +16,9 @@ const Navbar = () => {
 
   return (
     <div className="w-full">
-      <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
-            <ConnectWallet
-              dropdownPosition={{
-                side: "top",
-                align: "center",
-              }}
-            />
-          </div>
+      
       <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-0">
+      
         {/* Logo  */}
         <Disclosure>
           {({ open }) => (
@@ -77,8 +70,9 @@ const Navbar = () => {
                       </Link>
                     ))}
                     <Link href="/" className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5">         
-                        Get Started
+                        GetStarted
                     </Link>
+                  
                   </>
                 </Disclosure.Panel>
               </div>
@@ -101,7 +95,7 @@ const Navbar = () => {
 
         <div className="hidden mr-3 space-x-4 lg:flex nav__item">
           <Link href="/" className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5">
-              Get Started
+              GetStarted
           </Link>
 
           <ThemeChanger />

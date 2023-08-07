@@ -6,6 +6,7 @@ import { FaceSmileIcon, ChartBarSquareIcon, CursorArrowRaysIcon } from '@heroico
 import Head from "next/head";
 import Hero from "../components/hero";
 import Navbar from "../components/navbar";
+import ConnectWallet from "../components/connectWallet"; 
 import SectionTitle from "../components/sectionTitle";
 
 import { benefitOne, benefitTwo } from "../components/data";
@@ -16,11 +17,14 @@ import Testimonials from "../components/testimonials";
 import Cta from "../components/cta";
 import Faq from "../components/faq";
 import PopupWidget from "../components/popupWidget";
+import Connectwallet from "../components/connectWallet";
 
 const Home = () => {
   return (
+    
     <>
       <Head>
+         
         <title>Nextly - Free Nextjs & TailwindCSS Landing Page Template</title>
         <meta
           name="description"
@@ -30,6 +34,7 @@ const Home = () => {
       </Head>
 
       <Navbar />
+      <Connectwallet/>
       <Hero />
       <SectionTitle
         pretitle="Nextly Benefits"
