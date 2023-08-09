@@ -2,23 +2,16 @@ import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react";
-// import styles from '../styles/globals.css';
-
 
 const Navbar = () => {
   const navigation = [
-    "Product",
-    "Features",
-    "Pricing",
-    "Company",
+    "Informations",
     "Blog",
   ];
 
   return (
     <div className="w-full">
-      
       <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-0">
-      
         {/* Logo  */}
         <Disclosure>
           {({ open }) => (
@@ -35,7 +28,7 @@ const Navbar = () => {
                         className="w-8"
                       />
                     </span>
-                    <span>Nextly</span>
+                    <span>JOINT AIRMEN MESS</span>
                   </span>
                 </Link>
 
@@ -70,9 +63,8 @@ const Navbar = () => {
                       </Link>
                     ))}
                     <Link href="/" className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5">         
-                        GetStarted
+                        CONNECT WALLET
                     </Link>
-                  
                   </>
                 </Disclosure.Panel>
               </div>
@@ -95,7 +87,7 @@ const Navbar = () => {
 
         <div className="hidden mr-3 space-x-4 lg:flex nav__item">
           <Link href="/" className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5">
-              GetStarted
+              CONNECT WALLET
           </Link>
 
           <ThemeChanger />

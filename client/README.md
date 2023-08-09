@@ -1,40 +1,65 @@
-## Getting Started
+<p align="center">
+ <a href="https://web3templates.com/?ref=nextly_github_logo">
+ <img src="https://user-images.githubusercontent.com/1884712/132941531-0fdd7acf-47ca-424e-b77f-1fab2e372a37.png" alt="W3T" width="100" height="41"/>
+ </a> 
+ <br>
+ <br>
+</p>
 
-Create a project using this example:
+# Nextly - Landing Page Template with Next.js & Tailwind CSS
+
+Nextly is a free landing page & marketing website template for  startups and indie projects. Its built with Next.js & TailwindCSS.
+And its completely open-source.
+ 
+![image](https://user-images.githubusercontent.com/1884712/121497169-03228680-c990-11eb-975a-e77fddc43de0.png)
+
+## How to use
+
+Click on the [Use Template](https://github.com/surjithctly/nextly-template/generate) button on this page to clone this respository to your github account. Or you can also clone this respository using terminal or bash. 
+
+### 1\. Clone this Repository
 
 ```bash
-npx thirdweb create --template next-javascript-starter
+git clone https://github.com/surjithctly/nextly-template.git
 ```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### 2\. Navigate to the directory
 
-On `pages/_app.js`, you'll find our `ThirdwebProvider` wrapping your app, this is necessary for our [hooks](https://portal.thirdweb.com/react) and
-[UI Components](https://portal.thirdweb.com/ui-components) to work.
-
-## Environment Variables
-
-To run this project, you will need to add environment variables. Check the `.env.example` file for all the environment variables required and add it to `.env.local` file or set them up on your hosting provider.
-
-## Deploy to IPFS
-
-Deploy a copy of your application to IPFS using the following command:
-
-```bash
-yarn deploy
+```
+cd nextly-template
 ```
 
-## Learn More
+### 3\. Install dependencies
 
-To learn more about thirdweb and Next.js, take a look at the following resources:
+```
+yarn install
+# or
+npm install
+```
 
-- [thirdweb React Documentation](https://docs.thirdweb.com/react) - learn about our React SDK.
-- [thirdweb JavaScript Documentation](https://docs.thirdweb.com/react) - learn about our JavaScript/TypeScript SDK.
-- [thirdweb Portal](https://docs.thirdweb.com/react) - check our guides and development resources.
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Templates](https://thirdweb.com/templates)
+### 5\. Run Dev Server
 
-You can check out [the thirdweb GitHub organization](https://github.com/thirdweb-dev) - your feedback and contributions are welcome!
+```
+yarn dev
+# or
+npm run dev
+```
 
-## Join our Discord!
+## Deploy with Vercel
 
-For any questions, suggestions, join our discord at [https://discord.gg/thirdweb](https://discord.gg/thirdweb).
+Deploy this template using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/surjithctly/nextly-template&project-name=nextly-template&repository-name=nextly-template)
+
+
+## Author
+
+Surjith S M ( [@surjithctly](https://surjithctly.in/) )
+
+---
+
+[![image](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com/?utm_source=web3templates&utm_campaign=oss)
+
+
+
+

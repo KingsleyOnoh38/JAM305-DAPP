@@ -35,22 +35,47 @@ const Faq = () => {
 
 const faqdata = [
   {
-    question: "Is this template completely free to use?",
-    answer: "Yes, this template is completely free to use.",
+    question: "How can I become a member of the Joint Airmen Mess?",
+    answer: "To become a member, you need to express your interest by filling out a Membership Intent Form available through the mess administration. Eligibility criteria of the 305 Special Mobility Group and adhering to Nigerian Air Force regulations.",
   },
   {
-    question: "Can I use it in a commercial project?",
-    answer: "Yes, this you can.",
+    question: "What are the benefits of being a mess member?",
+    answer: "As a member, you'll enjoy access to a vibrant community, networking opportunities, recreational facilities, and engaging events. The mess fosters camaraderie, provides a relaxing space, and offers shared experiences within the Nigerian Air Force family.",
   },
   {
-    question: "What is your refund policy? ",
+    question: "What kind of events does the mess organize?",
     answer:
-      "If you're unhappy with your purchase for any reason, email us within 90 days and we'll refund you in full, no questions asked.",
+      "The mess hosts a variety of events including parties, celebrations for holidays and milestones, sports competitions, community service initiatives, and career development workshops. These events provide opportunities for bonding and personal growth.",
   },
   {
-    question: "Do you offer technical support? ",
+    question: "Can I bring guests to mess events?",
     answer:
-      "No, we don't offer technical support for free downloads. Please purchase a support plan to get 6 months of support.",
+      "Yes, most mess events allow members to bring guests. However, guest policies may vary depending on the event and mess regulations. Be sure to check with the mess administration for specific guidelines",
+  },
+  {
+    question: "How can I stay updated about mess events and activities?",
+    answer:
+      "Stay informed by regularly checking the mess's website and notice boards. You can also subscribe to mess newsletters or follow official social media channels for announcements, event schedules, and important updates.",
+  },
+  {
+    question: "Can I volunteer to organize or contribute to mess events?",
+    answer:
+      "Absolutely! The mess often welcomes volunteers who are interested in contributing to event planning and execution. Volunteering is a great way to get involved, showcase your skills, and enhance the mess experience for all members.",
+  },
+  {
+    question: "Are there any dress codes for mess events?",
+    answer:
+      "Yes, many mess events may have specific dress codes, especially for formal or themed gatherings. Dress codes ensure a respectful and appropriate atmosphere. Details about dress codes are usually communicated prior to the event.",
+  },
+  {
+    question: " How can I provide feedback or suggestions to improve the mess experience?",
+    answer:
+      "The mess administration values member input. You can provide feedback or suggestions directly to mess organizers, through feedback forms, or during meetings. Your insights help shape a better mess community for everyone.",
+  },
+  {
+    question: "Are there any membership fees associated with joining the mess?",
+    answer:
+      "Membership fees are applicable to cover the operational costs of maintaining the mess facilities and organizing events. Specifics about membership fees can be obtained from the mess administration.",
   },
 ];
 
