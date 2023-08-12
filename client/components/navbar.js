@@ -2,11 +2,14 @@ import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react";
+import Register from "./register";
+import Home from "../pages/index.js"
 
 const Navbar = () => {
   const navigation = [
-    "Informations",
+    "Home",
     "Blog",
+    <Register />
   ];
 
   return (
