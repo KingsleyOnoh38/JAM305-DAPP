@@ -144,7 +144,7 @@ contract MemberContract {
         );
     }
 
-    // Function to generate a unique membership ID in the format "JAM/305-SMG/xxx"
+    // Function to generate a unique membership ID in the format "NAF/JAM/305SMG/xxx"
     function generateUniqueMembershipId() private returns (string memory) {
         return adminContract.generateUniqueMembershipId();
     }

@@ -127,10 +127,10 @@ contract Admin {
         return registrationId;
     }
 
-    // Function to generate a unique membership ID in the format "JAM/305-SMG/xxx"
+    // Function to generate a unique membership ID in the format "NAF/JAM/305SMG/xxx"
     function generateUniqueMembershipId() public returns (string memory) {
         lastMemberId++;
-        string memory prefix = "JAM/305-SMG/";
+        string memory prefix = "NAF/JAM/305SMG/";
         string memory idNumber = _toStringWithLeadingZeros(lastMemberId, 3);
         string memory uniqueId = string(abi.encodePacked(prefix, idNumber));
 
