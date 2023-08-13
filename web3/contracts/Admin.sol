@@ -25,6 +25,7 @@ contract Admin {
 
     constructor() {
         admin = msg.sender;
+        lastMemberId = 0;
     }
 
     // Modifier to check if the caller is the admin
@@ -139,22 +140,23 @@ contract Admin {
 
     // Helper function to convert a uint to a string with leading zeros
     function _toStringWithLeadingZeros(uint256 value, uint256 length) private pure returns (string memory) {
-        uint256 temp = value;
-        uint256 digits;
-
-        while (temp != 0) {
-            digits++;
-            temp /= 10;
-        }
-
         bytes memory buffer = new bytes(length);
 
         for (uint256 i = 0; i < length; i++) {
-            buffer[i] = bytes1(uint8(48 + uint256(value % 10)));
-            value /= 10;
+            buffer[i] = bytes1("0");
         }
 
-        return string(buffer);
+        uint256 temp = value;
+        uint256 digitPos = length - 1;
+
+        while (temp != 0 && digitPos >= 0) {
+            buffer[digitPos] = bytes1(uint8(48 + uint256(temp % 10)));
+            temp /= 10;
+            digitPos--;
+        }
+
+        string memory result = string(buffer);
+        return result;
     }
 
     // Helper function to convert a uint to a string
