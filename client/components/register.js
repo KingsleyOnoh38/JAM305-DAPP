@@ -36,7 +36,7 @@ export default function Example() {
                                         'block px-4 py-2 text-sm'
                                     )}
                                 >
-                                        Sign In
+                                        Enter Reg. ID
                                 </Link>
                             )}
                         </Menu.Item>
@@ -48,7 +48,7 @@ export default function Example() {
                                         'block px-4 py-2 text-sm'
                                     )}
                                 >
-                                        Sign Up
+                                        Register
                                 </Link>
                             )}
                         </Menu.Item>
