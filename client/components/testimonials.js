@@ -6,15 +6,15 @@ import userOneImg from "../public/img/user1.jpg";
 import userTwoImg from "../public/img/user2.jpg";
 import userThreeImg from "../public/img/user3.jpg";
 
-const Testimonials  = () => {
+const Testimonials = () => {
   return (
     <Container>
       <div className="grid gap-10 lg:grid-cols-2 xl:grid-cols-3">
         <div className="lg:col-span-2 xl:col-auto">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal ">
-              "I joined the Joint Airmen Mess with a bit of hesitation, but it turned out to be the best 
-              decision. The mess has given me a sense of belonging, where I've met amazing friends and 
+              "I joined the Joint Airmen Mess with a bit of hesitation, but it turned out to be the best
+              decision. The mess has given me a sense of belonging, where I've met amazing friends and
               mentors. The networking opportunities have helped me grow not only as a member but also as an individual."
             </p>
 
@@ -28,8 +28,8 @@ const Testimonials  = () => {
         <div className="">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal ">
-              "The Joint Airmen Mess has become my second home. The recreational facilities offer a 
-              perfect escape after long hours of duty. It's more than just a place to unwind; it's where 
+              "The Joint Airmen Mess has become my second home. The recreational facilities offer a
+              perfect escape after long hours of duty. It's more than just a place to unwind; it's where
               I've found a family of like-minded members who share experiences, and we support each other."
             </p>
 
@@ -43,9 +43,9 @@ const Testimonials  = () => {
         <div className="">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal ">
-              "I can't emphasize enough how the mess events have enriched my life. From themed parties 
-              to community service initiatives, every event is an opportunity to bond with fellow members 
-              and make a difference. The mess has turned my social life into a memorable journey filled 
+              "I can't emphasize enough how the mess events have enriched my life. From themed parties
+              to community service initiatives, every event is an opportunity to bond with fellow members
+              and make a difference. The mess has turned my social life into a memorable journey filled
               with meaningful connections."
             </p>
 

@@ -36,7 +36,7 @@ export default function Example() {
                                         'block px-4 py-2 text-sm'
                                     )}
                                 >
-                                        Enter Reg. ID
+                                    Enter Reg. ID
                                 </Link>
                             )}
                         </Menu.Item>
@@ -48,25 +48,25 @@ export default function Example() {
                                         'block px-4 py-2 text-sm'
                                     )}
                                 >
-                                        Register
+                                    Register
                                 </Link>
                             )}
                         </Menu.Item>
-                        
+
                         {/* <form method="POST" action="#"> */}
-                            {/* <Menu.Item> */}
-                                {/* {({ active }) => ( */}
-                                    {/* <button */}
-                                        {/* type="submit" */}
-                                        {/* className={classNames( */}
-                                            {/* active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', */}
-                                            {/* 'block w-full px-4 py-2 text-left text-sm' */}
-                                        {/* )} */}
-                                    {/* > */}
-                                        {/* Sign out */}
-                                    {/* </button> */}
-                                {/* )} */}
-                            {/* </Menu.Item> */}
+                        {/* <Menu.Item> */}
+                        {/* {({ active }) => ( */}
+                        {/* <button */}
+                        {/* type="submit" */}
+                        {/* className={classNames( */}
+                        {/* active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', */}
+                        {/* 'block w-full px-4 py-2 text-left text-sm' */}
+                        {/* )} */}
+                        {/* > */}
+                        {/* Sign out */}
+                        {/* </button> */}
+                        {/* )} */}
+                        {/* </Menu.Item> */}
                         {/* </form> */}
                     </div>
                 </Menu.Items>

@@ -57,4 +57,4 @@ const benefitTwo = {
 };
 
 
-export {benefitOne, benefitTwo};
+export { benefitOne, benefitTwo };

@@ -22,7 +22,7 @@ export default function Example() {
                     <form className="space-y-6" action="#" method="POST">
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
-                               Enter registration ID from management.
+                                Enter registration ID from management.
                             </label>
                             <div className="mt-2">
                                 <input

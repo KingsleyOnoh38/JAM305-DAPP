@@ -12,11 +12,11 @@ const Hero = () => {
               NIGERIAN AIRFORCE JOINT AIRMEN MESS
             </h1>
             <p className="py-5 text-lg leading-normal text-gray-500 lg:text-lg xl:text-lg dark:text-gray-300">
-              The Joint Airmen Mess Nigerian Air Force 305 Special Mobility Group Calabar plays a pivotal role in 
-              fostering a sense of community and unity among the members. 
-              It provides a welcoming and comfortable atmosphere where members can relax, socialize, 
-              and strengthen their relationships. The mess is designed to create a 
-              sense of home away from home, offering a space for members to unwind, share experiences, 
+              The Joint Airmen Mess Nigerian Air Force 305 Special Mobility Group Calabar plays a pivotal role in
+              fostering a sense of community and unity among the members.
+              It provides a welcoming and comfortable atmosphere where members can relax, socialize,
+              and strengthen their relationships. The mess is designed to create a
+              sense of home away from home, offering a space for members to unwind, share experiences,
               and engage in meaningful conversations.
             </p>
 
