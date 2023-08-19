@@ -5,6 +5,9 @@ import { Disclosure } from "@headlessui/react";
 import Register from "./register";
 import Home from "../pages/index.js"
 
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+
+
 const Navbar = () => {
   const navigation = [
     "Home",
@@ -59,7 +62,7 @@ const Navbar = () => {
                 </Disclosure.Button>
 
                 <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
-                
+                  <ConnectButton />
                 </Disclosure.Panel>
               </div>
             </>
@@ -80,8 +83,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden mr-3 space-x-4 lg:flex nav__item">
-         
-
+          <ConnectButton />
           <ThemeChanger />
         </div>
       </nav>
