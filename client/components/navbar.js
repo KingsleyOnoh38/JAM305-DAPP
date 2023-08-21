@@ -19,7 +19,7 @@ const Navbar = () => {
         <Disclosure>
           {({ open }) => (
             <>
-              <div className="flex flex-wrap items-center justify-between w-full lg:w-auto">
+              <div className="ml-6 flex flex-wrap items-center justify-between w-full lg:w-auto">
                 <Link href="/">
                   <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
                     <span>
