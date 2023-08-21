@@ -2,8 +2,20 @@ import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
+import adminContractABI from "../contracts/admin.json"
+import { usePrepareContractWrite, useContractWrite } from 'wagmi'
+
 
 export default function Example() {
+    const { config } = usePrepareContractWrite({
+        address: '0xcd3EAf02914169fE4D6cBf19Ce6494e2c0160E40',
+        abi: adminContractABI.abi,
+        functionName: 'registerSelf',
+    })
+
+    const { write } = useContractWrite(config)
+
+
     return (
         <>
             <Navbar />
@@ -20,7 +32,8 @@ export default function Example() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" action="#
+                    " method="POST">
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
                                 Name
@@ -188,11 +201,14 @@ export default function Example() {
 
                         <div>
                             <button
+                                disabled={!write} onClick={() => write?.()}
                                 type="submit"
                                 className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                             >
                                 Register
                             </button>
+                            {isLoading && <div>Check Wallet</div>}
+                            {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
                         </div>
                     </form>
 

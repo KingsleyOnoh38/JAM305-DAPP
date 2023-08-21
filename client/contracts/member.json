@@ -1,0 +1,379 @@
+[
+    {
+        "type": "constructor",
+        "name": "",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "_adminContractAddress",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "event",
+        "name": "MembershipIdGenerated",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "member",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "type": "string",
+                "name": "membershipId",
+                "indexed": false,
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "ProfileUpdated",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "member",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "type": "string",
+                "name": "name",
+                "indexed": false,
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "image",
+                "indexed": false,
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "anonymous": false
+    },
+    {
+        "type": "function",
+        "name": "adminContract",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "contract Admin"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getMemberFinancialStatus",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getMemberProfile",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "inputRegistrationId",
+        "inputs": [
+            {
+                "type": "string",
+                "name": "_registrationId",
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "isAdminRegistered",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "memberAddress",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "memberProfile",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "string",
+                "name": "name",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "phoneNumber",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "image",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "maritalStatus",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "emailAddress",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "houseAddress",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "sex",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "dateOfBirth",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "validIdNumber",
+                "internalType": "string"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "membershipId",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "registerSelf",
+        "inputs": [
+            {
+                "type": "string",
+                "name": "_name",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_phoneNumber",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_image",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_maritalStatus",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_emailAddress",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_houseAddress",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_sex",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_dateOfBirth",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_validIdNumber",
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "registrationId",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "updateProfile",
+        "inputs": [
+            {
+                "type": "string",
+                "name": "_name",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_phoneNumber",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_image",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_maritalStatus",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_emailAddress",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_houseAddress",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_sex",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_dateOfBirth",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "_validIdNumber",
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    }
+]

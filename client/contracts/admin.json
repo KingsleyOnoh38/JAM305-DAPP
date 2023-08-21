@@ -1,0 +1,331 @@
+[
+    {
+        "type": "constructor",
+        "name": "",
+        "inputs": [],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "event",
+        "name": "FinancialStatusUpdated",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "member",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "type": "uint256",
+                "name": "registrationFees",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "membershipRenewalFees",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "monthlyDues",
+                "indexed": false,
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "monthlyLevies",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "MembershipIdGenerated",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "member",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "type": "string",
+                "name": "membershipId",
+                "indexed": false,
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "MembershipRevoked",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "member",
+                "indexed": true,
+                "internalType": "address"
+            }
+        ],
+        "outputs": [],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "RegistrationIdGenerated",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "member",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "type": "string",
+                "name": "registrationId",
+                "indexed": false,
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "anonymous": false
+    },
+    {
+        "type": "function",
+        "name": "admin",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "generateRegistrationId",
+        "inputs": [
+            {
+                "type": "string",
+                "name": "name",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "image",
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "generateUniqueMembershipId",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            }
+        ],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "getFinancialStatus",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "memberAddress",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "registrationFees",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "membershipRenewalFees",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "monthlyDues",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "monthlyLevies",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getMemberDashboard",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getMemberDetails",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "index",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            },
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getMemberName",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "memberAddress",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getMembersCount",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "lastMemberId",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "memberAddresses",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "revokeMembership",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "member",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "updateFinancialStatus",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "member",
+                "internalType": "address"
+            },
+            {
+                "type": "uint256",
+                "name": "registrationFees",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "membershipRenewalFees",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "monthlyDues",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "monthlyLevies",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    }
+]
