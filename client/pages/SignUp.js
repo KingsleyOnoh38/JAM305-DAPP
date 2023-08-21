@@ -207,8 +207,6 @@ export default function Example() {
                             >
                                 Register
                             </button>
-                            {isLoading && <div>Check Wallet</div>}
-                            {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
                         </div>
                     </form>
 
