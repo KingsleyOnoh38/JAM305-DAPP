@@ -1,19 +1,78 @@
+import React, { useState } from 'react';
+
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
-import adminContractABI from "../contracts/admin.json"
+import memberContractABI from "../contracts/member.json"
 import { usePrepareContractWrite, useContractWrite } from 'wagmi'
 
 
 export default function Example() {
     const { config } = usePrepareContractWrite({
         address: '0xcd3EAf02914169fE4D6cBf19Ce6494e2c0160E40',
-        abi: adminContractABI.abi,
+        abi: memberContractABI.abi,
         functionName: 'registerSelf',
     })
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [data, setData] = useState(null);
+
     const { write } = useContractWrite(config)
+
+    // Assuming this is within a functional component...
+
+    // Declare state at the top level of your functional component
+    const [form, setForm] = useState({
+        name: '',
+        phoneNumber: '',
+        image: '',
+        maritalStatus: '',
+        emailAddress: '',
+        houseAddress: '',
+        sex: '',
+        dateOfBirth: '',
+        validIdNumber: '',
+    });
+
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        checkIfImage(form.image, async (exists) => {
+            if (exists) {
+                setIsLoading(true)
+                await registerSelf({ ...form, target: ethers.utils.parseUnits(form, 18) })
+                setIsLoading(false);
+                navigate('/');
+            } else {
+                alert('Provide valid image URL')
+                setForm({ ...form, patientImage: '' });
+            }
+        })
+
+        setIsLoading(true); // Set the loading state
+
+        try {
+            const transactionResponse = await write(form);
+            if (transactionResponse) {
+                setIsLoading(false); // Unset the loading state
+                setIsSuccess(true); // You can set the success state here
+                setData(transactionResponse); // If you want to display the transaction data
+
+                // Redirect to the member dashboard
+                window.location.href = "/dashboard";
+            } else {
+                setIsLoading(false); // Unset the loading state
+                console.error("Transaction failed");
+            }
+        } catch (error) {
+            setIsLoading(false); // Unset the loading state in case of an error
+            console.error("Error submitting transaction:", error);
+        }
+    };
+
 
 
     return (
@@ -32,20 +91,19 @@ export default function Example() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#
-                    " method="POST">
+                    <form className="space-y-6" onSubmit={handleFormSubmit}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
                                 Name
                             </label>
                             <div className="mt-2">
-                                <input
+                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                     id="name"
-                                    name="name"
-                                    type="name"
                                     autoComplete="name"
                                     required
-                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    type="text"
+                                    value={form.name}
+                                    onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))}
                                 />
                             </div>
                         </div>
@@ -55,66 +113,46 @@ export default function Example() {
                                 Phone Number
                             </label>
                             <div className="mt-2">
-                                <input
+                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                     id="phoneNumber"
-                                    name="phoneNumber"
-                                    type="phoneNumber"
                                     autoComplete="phoneNumber"
                                     required
-                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    type="text"
+                                    value={form.phoneNumber}
+                                    onChange={(e) => setForm(prev => ({ ...prev, phoneNumber: e.target.value }))}
                                 />
                             </div>
                         </div>
 
-                        <div className="col-span-full">
-                            <label htmlFor="photo" className="block text-sm font-medium leading-6 text-white">
-                                Photo
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                                Image
                             </label>
-                            <div className="mt-2 flex items-center gap-x-3">
-                                <UserCircleIcon className="h-12 w-12 text-gray-500" aria-hidden="true" />
-                                <button
-                                    type="button"
-                                    className="rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20"
-                                >
-                                    Change
-                                </button>
+                            <div className="mt-2">
+                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    id="image"
+                                    autoComplete="url"
+                                    required
+                                    type="url"
+                                    value={form.image}
+                                    onChange={(e) => setForm(prev => ({ ...prev, image: e.target.value }))}
+                                />
                             </div>
                         </div>
 
-                        <div className="col-span-full">
-                            <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-white">
-                                Cover photo
-                            </label>
-                            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
-                                <div className="text-center">
-                                    <PhotoIcon className="mx-auto h-12 w-12 text-gray-500" aria-hidden="true" />
-                                    <div className="mt-4 flex text-sm leading-6 text-gray-400">
-                                        <label
-                                            htmlFor="file-upload"
-                                            className="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
-                                        >
-                                            <span>Upload a file</span>
-                                            <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                                        </label>
-                                        <p className="pl-1">or drag and drop</p>
-                                    </div>
-                                    <p className="text-xs leading-5 text-gray-400">PNG, JPG, GIF up to 10MB</p>
-                                </div>
-                            </div>
-                        </div>
 
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
                                 Marital Status
                             </label>
                             <div className="mt-2">
-                                <input
-                                    id="status"
-                                    name="status"
-                                    type="status"
-                                    autoComplete="status"
+                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    id="maritalStatus"
+                                    autoComplete="maritalStatus"
                                     required
-                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    type="text"
+                                    value={form.maritalStatus}
+                                    onChange={(e) => setForm(prev => ({ ...prev, maritalStatus: e.target.value }))}                                
                                 />
                             </div>
                         </div>
@@ -124,13 +162,13 @@ export default function Example() {
                                 Email Address
                             </label>
                             <div className="mt-2">
-                                <input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    autoComplete="email"
+                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    id="emailAddress"
+                                    autoComplete="emailAddress"
                                     required
-                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    type="text"
+                                    value={form.emailAddress}
+                                    onChange={(e) => setForm(prev => ({ ...prev, emailAddress: e.target.value }))}
                                 />
                             </div>
                         </div>
@@ -140,13 +178,13 @@ export default function Example() {
                                 House Address
                             </label>
                             <div className="mt-2">
-                                <input
-                                    id="address"
-                                    name="address"
-                                    type="address"
-                                    autoComplete="address"
+                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    id="houseAddress"
+                                    autoComplete="houseAddress"
                                     required
-                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    type="text"
+                                    value={form.houseAddress}
+                                    onChange={(e) => setForm(prev => ({ ...prev, houseAddress: e.target.value }))}
                                 />
                             </div>
                         </div>
@@ -156,13 +194,13 @@ export default function Example() {
                                 Sex
                             </label>
                             <div className="mt-2">
-                                <input
-                                    id="gender"
-                                    name="gender"
-                                    type="gender"
-                                    autoComplete="gender"
+                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    id="sex"
+                                    autoComplete="sex"
                                     required
-                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    type="text"
+                                    value={form.sex}
+                                    onChange={(e) => setForm(prev => ({ ...prev, sex: e.target.value }))}
                                 />
                             </div>
                         </div>
@@ -172,13 +210,13 @@ export default function Example() {
                                 Date of Birth
                             </label>
                             <div className="mt-2">
-                                <input
-                                    id="date"
-                                    name="date"
-                                    type="date"
-                                    autoComplete="date"
+                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    id="dateOfBirth"
+                                    autoComplete="dateOfBirth"
                                     required
-                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    type="date"
+                                    value={form.dateOfBirth}
+                                    onChange={(e) => setForm(prev => ({ ...prev, dateOfBirth: e.target.value }))}
                                 />
                             </div>
                         </div>
@@ -188,20 +226,19 @@ export default function Example() {
                                 Valid Government Issued ID number
                             </label>
                             <div className="mt-2">
-                                <input
-                                    id="number"
-                                    name="number"
-                                    type="number"
+                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    id="validIdNumber"
                                     autoComplete="number"
                                     required
-                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                    type="number"
+                                    value={form.validIdNumber}
+                                    onChange={(e) => setForm(prev => ({ ...prev, validIdNumber: e.target.value }))}
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <button
-                                disabled={!write} onClick={() => write?.()}
+                            <button disabled={!write} onClick={() => write?.()}
                                 type="submit"
                                 className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                             >
