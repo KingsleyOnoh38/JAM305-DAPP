@@ -1,79 +1,41 @@
-import React, { useState } from 'react';
-
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import React from 'react';
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-
-import memberContractABI from "../contracts/member.json"
-import { usePrepareContractWrite, useContractWrite } from 'wagmi'
-
+import { useContractWrite } from 'wagmi';
+import memberContractABI from "../contracts/member.json";
 
 export default function Example() {
-    const { config } = usePrepareContractWrite({
-        address: '0xcd3EAf02914169fE4D6cBf19Ce6494e2c0160E40',
-        abi: memberContractABI.abi,
-        functionName: 'registerSelf',
-    })
-
-    const [isLoading, setIsLoading] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [data, setData] = useState(null);
-
-    const { write } = useContractWrite(config)
-
-    // Assuming this is within a functional component...
-
-    // Declare state at the top level of your functional component
-    const [form, setForm] = useState({
-        name: '',
-        phoneNumber: '',
-        image: '',
-        maritalStatus: '',
-        emailAddress: '',
-        houseAddress: '',
-        sex: '',
-        dateOfBirth: '',
-        validIdNumber: '',
+    const { write } = useContractWrite({
+        address: '0xcd3EAf02914169fE4D6cBf19Ce6494e2c0160E40', // Replace with your contract address
+        abi: memberContractABI, // Use the ABI you've provided
+        functionName: 'registerSelf', // Use the function you want to interact with
     });
 
-
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-
-        checkIfImage(form.image, async (exists) => {
-            if (exists) {
-                setIsLoading(true)
-                await registerSelf({ ...form, target: ethers.utils.parseUnits(form, 18) })
-                setIsLoading(false);
-                navigate('/');
-            } else {
-                alert('Provide valid image URL')
-                setForm({ ...form, patientImage: '' });
-            }
-        })
-
-        setIsLoading(true); // Set the loading state
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
 
         try {
-            const transactionResponse = await write(form);
-            if (transactionResponse) {
-                setIsLoading(false); // Unset the loading state
-                setIsSuccess(true); // You can set the success state here
-                setData(transactionResponse); // If you want to display the transaction data
-
-                // Redirect to the member dashboard
-                window.location.href = "/dashboard";
-            } else {
-                setIsLoading(false); // Unset the loading state
-                console.error("Transaction failed");
-            }
+            // Call the contract function
+            await write({
+                args: [
+                    formData.get('name'),
+                    formData.get('phoneNumber'),
+                    formData.get('image'),
+                    formData.get('maritalStatus'),
+                    formData.get('emailAddress'),
+                    formData.get('houseAddress'),
+                    formData.get('sex'),
+                    formData.get('dateOfBirth'),
+                    Number(formData.get('validIdNumber'))
+                ],
+                from: '0x6faC4708fFb8BB4ccfF3149AF2A59f59E4Ef8F16', // Replace with your wallet address
+            });
+            console.log('Transaction successful');
         } catch (error) {
-            setIsLoading(false); // Unset the loading state in case of an error
-            console.error("Error submitting transaction:", error);
+            console.error('Transaction failed', error);
         }
     };
-
-
 
     return (
         <>
@@ -91,154 +53,161 @@ export default function Example() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" onSubmit={handleFormSubmit}>
+                    <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                            <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
                                 Name
                             </label>
                             <div className="mt-2">
-                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                <input
                                     id="name"
+                                    name="name"
+                                    type="text"
                                     autoComplete="name"
                                     required
-                                    type="text"
-                                    value={form.name}
-                                    onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))}
+                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
+                        {/* Phone Number */}
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                            <label htmlFor="phoneNumber" className="block text-sm font-medium leading-6 text-white">
                                 Phone Number
                             </label>
                             <div className="mt-2">
-                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                <input
                                     id="phoneNumber"
+                                    name="phoneNumber"
+                                    type="text"
                                     autoComplete="phoneNumber"
                                     required
-                                    type="text"
-                                    value={form.phoneNumber}
-                                    onChange={(e) => setForm(prev => ({ ...prev, phoneNumber: e.target.value }))}
+                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
+                        {/* Image */}
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                            <label htmlFor="image" className="block text-sm font-medium leading-6 text-white">
                                 Image
                             </label>
                             <div className="mt-2">
-                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                <input
                                     id="image"
+                                    name="image"
+                                    type="url"
                                     autoComplete="url"
                                     required
-                                    type="url"
-                                    value={form.image}
-                                    onChange={(e) => setForm(prev => ({ ...prev, image: e.target.value }))}
+                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
-
+                        {/* Marital Status */}
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                            <label htmlFor="maritalStatus" className="block text-sm font-medium leading-6 text-white">
                                 Marital Status
                             </label>
                             <div className="mt-2">
-                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                <input
                                     id="maritalStatus"
+                                    name="maritalStatus"
+                                    type="text"
                                     autoComplete="maritalStatus"
                                     required
-                                    type="text"
-                                    value={form.maritalStatus}
-                                    onChange={(e) => setForm(prev => ({ ...prev, maritalStatus: e.target.value }))}                                
+                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
+                        {/* Email Address */}
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                            <label htmlFor="emailAddress" className="block text-sm font-medium leading-6 text-white">
                                 Email Address
                             </label>
                             <div className="mt-2">
-                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                <input
                                     id="emailAddress"
+                                    name="emailAddress"
+                                    type="text"
                                     autoComplete="emailAddress"
                                     required
-                                    type="text"
-                                    value={form.emailAddress}
-                                    onChange={(e) => setForm(prev => ({ ...prev, emailAddress: e.target.value }))}
+                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
+                        {/* House Address */}
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                            <label htmlFor="houseAddress" className="block text-sm font-medium leading-6 text-white">
                                 House Address
                             </label>
                             <div className="mt-2">
-                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                <input
                                     id="houseAddress"
+                                    name="houseAddress"
+                                    type="text"
                                     autoComplete="houseAddress"
                                     required
-                                    type="text"
-                                    value={form.houseAddress}
-                                    onChange={(e) => setForm(prev => ({ ...prev, houseAddress: e.target.value }))}
+                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
+                        {/* Sex */}
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                            <label htmlFor="sex" className="block text-sm font-medium leading-6 text-white">
                                 Sex
                             </label>
                             <div className="mt-2">
-                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                <input
                                     id="sex"
+                                    name="sex"
+                                    type="text"
                                     autoComplete="sex"
                                     required
-                                    type="text"
-                                    value={form.sex}
-                                    onChange={(e) => setForm(prev => ({ ...prev, sex: e.target.value }))}
+                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
+                        {/* Date of Birth */}
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                            <label htmlFor="dateOfBirth" className="block text-sm font-medium leading-6 text-white">
                                 Date of Birth
                             </label>
                             <div className="mt-2">
-                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                <input
                                     id="dateOfBirth"
+                                    name="dateOfBirth"
+                                    type="date"
                                     autoComplete="dateOfBirth"
                                     required
-                                    type="date"
-                                    value={form.dateOfBirth}
-                                    onChange={(e) => setForm(prev => ({ ...prev, dateOfBirth: e.target.value }))}
+                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
+                        {/* Valid ID Number */}
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+                            <label htmlFor="validIdNumber" className="block text-sm font-medium leading-6 text-white">
                                 Valid Government Issued ID number
                             </label>
                             <div className="mt-2">
-                                <input className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                                <input
                                     id="validIdNumber"
+                                    name="validIdNumber"
+                                    type="number"
                                     autoComplete="number"
                                     required
-                                    type="number"
-                                    value={form.validIdNumber}
-                                    onChange={(e) => setForm(prev => ({ ...prev, validIdNumber: e.target.value }))}
+                                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <button disabled={!write} onClick={() => write?.()}
+                            <button
                                 type="submit"
                                 className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                             >
@@ -257,5 +226,5 @@ export default function Example() {
             </div>
             <Footer />
         </>
-    )
+    );
 }
